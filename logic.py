@@ -38,7 +38,7 @@ def add_two(mat):
     while(mat[a][b]!=0):
         a=randint(0,len(mat)-1)
         b=randint(0,len(mat)-1)
-    mat[a][b]=2
+    mat[a][b]=1
     return mat
 
 ###########
