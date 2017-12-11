@@ -25,8 +25,10 @@ KEY_UP = "'w'"
 KEY_DOWN = "'s'"
 KEY_LEFT = "'a'"
 KEY_RIGHT = "'d'"
+KEY_UNDO = "'z'"
 
 class GameGrid(Frame):
+    
     def __init__(self):
         Frame.__init__(self)
 
@@ -45,6 +47,7 @@ class GameGrid(Frame):
         
         self.mainloop()
 
+ 
     def init_grid(self):
         background = Frame(self, bg=BACKGROUND_COLOR_GAME, width=SIZE, height=SIZE)
         background.grid()
@@ -80,8 +83,12 @@ class GameGrid(Frame):
         self.update_idletasks()
         
     def key_down(self, event):
+        #print(repr(event.char))
         key = repr(event.char)
-        if key in self.commands:
+        if key == "'r'":
+            print('restart')
+            self.__init__()
+        elif key in self.commands:
             self.matrix,done = self.commands[repr(event.char)](self.matrix)
             if done:
                 self.matrix = add_two(self.matrix)
@@ -94,6 +101,7 @@ class GameGrid(Frame):
                     self.grid_cells[1][1].configure(text="You",bg=BACKGROUND_COLOR_CELL_EMPTY)
                     self.grid_cells[1][2].configure(text="Lose!",bg=BACKGROUND_COLOR_CELL_EMPTY)
 
+        
 
     def generate_next(self):
         index = (self.gen(), self.gen())
