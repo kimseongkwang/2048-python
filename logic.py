@@ -32,6 +32,7 @@ def new_game(n):
 # Must ensure that it is created on a zero entry
 # 1 mark for creating the correct loop
 
+#change from 2 to 1
 def add_two(mat):
     a=randint(0,len(mat)-1)
     b=randint(0,len(mat)-1)

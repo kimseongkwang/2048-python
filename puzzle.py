@@ -25,7 +25,9 @@ KEY_UP = "'w'"
 KEY_DOWN = "'s'"
 KEY_LEFT = "'a'"
 KEY_RIGHT = "'d'"
-KEY_UNDO = "'z'"
+
+#undo
+undoMat=[]
 
 class GameGrid(Frame):
     
@@ -81,15 +83,34 @@ class GameGrid(Frame):
                 else:
                     self.grid_cells[i][j].configure(text=str(new_number), bg=BACKGROUND_COLOR_DICT[new_number], fg=CELL_COLOR_DICT[new_number])
         self.update_idletasks()
+
+    def floor(n):
+        return int(n - (n % 1))
         
     def key_down(self, event):
-        #print(repr(event.char))
+        #restart
         key = repr(event.char)
         if key == "'r'":
             print('restart')
             self.__init__()
+
+        #undo
+        elif key == "'z'":
+            print('undo')
+            if len(undoMat) > 0:
+                mat = undoMat.pop()
+
+                for i in range(len(mat)):
+                    for j in range(len(mat)):
+                        self.matrix[i][j] = mat[i][j]
+
+            self.update_grid_cells()
+                                
         elif key in self.commands:
+            #undo
+            undoMat.append(self.matrix)
             self.matrix,done = self.commands[repr(event.char)](self.matrix)
+           
             if done:
                 self.matrix = add_two(self.matrix)
                 self.update_grid_cells()
