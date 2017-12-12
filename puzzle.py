@@ -1,6 +1,7 @@
 from tkinter import *
 from logic import *
 from random import *
+import time
 
 SIZE = 500
 GRID_LEN = 4
@@ -34,6 +35,12 @@ class GameGrid(Frame):
     def __init__(self):
         Frame.__init__(self)
 
+        img = PhotoImage(file = 'img/2048.png')
+        global lbl
+        lbl = Label(image = img)
+        lbl.image = img
+        lbl.place(x=0, y=0)
+        
         self.grid()
         self.master.title('2048')
         self.master.bind("<Key>", self.key_down)
@@ -49,7 +56,7 @@ class GameGrid(Frame):
         
         self.mainloop()
 
- 
+         
     def init_grid(self):
         background = Frame(self, bg=BACKGROUND_COLOR_GAME, width=SIZE, height=SIZE)
         background.grid()
@@ -105,6 +112,10 @@ class GameGrid(Frame):
                         self.matrix[i][j] = mat[i][j]
 
             self.update_grid_cells()
+
+        #img
+        elif key =="'i'":
+             lbl.config(image='')
                                 
         elif key in self.commands:
             #undo
